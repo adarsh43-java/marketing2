@@ -1,3 +1,45 @@
+<?php
+// Database configuration
+$host = "localhost";
+$username = "root";
+$password = "";
+$database = "your_database"; // Replace with your actual DB name
+
+// Connect to database
+$conn = new mysqli($host, $username, $password, $database);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+
+$success = $error = "";
+
+// Check if form was submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['sb'])) {
+    $name    = trim($_POST["name"]);
+    $email   = trim($_POST["email"]);
+    $subject = trim($_POST["subject"]);
+    $message = trim($_POST["message"]);
+
+    if ($name && $email && $subject && $message) {
+        // Prepare and bind
+        $stmt = $conn->prepare("INSERT INTO contact_messages (name, email, subject, message) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $name, $email, $subject, $message);
+
+        if ($stmt->execute()) {
+            $success = "Your message has been sent successfully!";
+        } else {
+            $error = "Something went wrong. Please try again.";
+        }
+
+        $stmt->close();
+    } else {
+        $error = "Please fill in all fields.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,9 +95,9 @@
                     <small class="ms-4"><i class="fa fa-envelope me-3"></i>nxtayush3@gmail.com</small>
                     <small class="ms-4"><i class="fa fa-phone-alt me-3"></i>+91 9305152223</small>
                     <div class="ms-3 d-flex">
-<!--                         <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i class="fab fa-facebook-f"></i></a> -->
+                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href="https://l.instagram.com/?u=https%3A%2F%2Fwww.linkedin.com%2Fin%2Faadarsh-sharma-127a56327%3Flipi%3Durn%25253Ali%25253Apage%25253Ad_flagship3_profile_view_base_contact_details%25253BNLGGRPs%25252FQnGrmxKeVcqMcg%25253D%25253D%26fbclid%3DPAZXh0bgNhZW0CMTEAAacAz-iVq79zjra8qAMJDjDi5OiLe5K06igr14yRikz6Us5GKBtGrgvFtnaYyw_aem_ZoCLjGhEpY0tZ2TumCjaLg&e=AT305efeS2Y-nfx62rYg97gCS99t2K67NkHUArSKNDgcU2fCbT6fyFiqrqXg2k3XtI-47TiecsquCYX861ZfM_cmqVWk9AOOlGtLZqA"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-sm-square btn-light text-primary rounded-circle ms-2" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
             </div>
@@ -128,53 +170,47 @@
             <div class="row g-5">
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="mb-4"></h3>
-                    <p class="mb-4"> <a href=""></a>.</p>
-                    <form method="POST">
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="name" placeholder="Your Name">
-                                    <label for="name">Your Name</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    <input type="email" class="form-control" id="email" placeholder="Your Email">
-                                    <label for="email">Your Email</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <input type="text" class="form-control" id="subject" placeholder="Subject">
-                                    <label for="subject">Subject</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating">
-                                    <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 200px"></textarea>
-                                    <label for="message">Message</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
-                    <?php
-                         $con = mysqli_connect('localhost','root','','users');
-                         if(isset($_POST['submit']))
-                         {
-                            $name=$_POST['Your Name'];
-                            $email=$_POST['Your Email'];
-                            $subject=$_POST['Subject'];
-                            $message=$_POST['message'];
-                            $submit=$_POST['submit'];
+                    <p class="mb-4"><a href=""></a>.</p>
+                    <?php if ($success): ?>
+    <div class="alert alert-success"><?php echo $success; ?></div>
+<?php endif; ?>
+<?php if ($error): ?>
+    <div class="alert alert-danger"><?php echo $error; ?></div>
+<?php endif; ?>
 
-                            $query = "INSERT INTO mydata(name, email, subject, message, submit)values ('$name','$email','$subject','$message','$submit')";
-                            $execute=mysqli_query($con,$query);
+<form method="post" action="">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
+                <label for="name">Your Name</label>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-floating">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Your Email" required>
+                <label for="email">Your Email</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
+                <label for="subject">Subject</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="form-floating">
+                <textarea class="form-control" placeholder="Leave a message here" id="message" name="message" style="height: 200px" required></textarea>
+                <label for="message">Message</label>
+            </div>
+        </div>
+        <div class="col-12">
+            <button class="btn btn-primary rounded-pill py-3 px-5" type="submit" name="sb">Send Message</button>
+        </div>
+    </div>
+</form>
 
-
-                         }
+                    
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <h3 class="mb-4">Contact Details</h3>
@@ -228,9 +264,9 @@
                     <p class="mb-2"><i class="fa fa-envelope me-3"></i>nxtayush3@gmail.com</p>
                     <div class="d-flex pt-3">
                         <a class="btn btn-square btn-light rounded-circle me-2" href=""><i class="fab fa-twitter"></i></a>
-<!--                         <a class="btn btn-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a> -->
+                        <a class="btn btn-square btn-light rounded-circle me-2" href=""><i class="fab fa-facebook-f"></i></a>
                         <a class="btn btn-square btn-light rounded-circle me-2" href=""><i class="fab fa-youtube"></i></a>
-                        <a class="btn btn-square btn-light rounded-circle me-2" href="https://l.instagram.com/?u=https%3A%2F%2Fwww.linkedin.com%2Fin%2Faadarsh-sharma-127a56327%3Flipi%3Durn%25253Ali%25253Apage%25253Ad_flagship3_profile_view_base_contact_details%25253BNLGGRPs%25252FQnGrmxKeVcqMcg%25253D%25253D%26fbclid%3DPAZXh0bgNhZW0CMTEAAacAz-iVq79zjra8qAMJDjDi5OiLe5K06igr14yRikz6Us5GKBtGrgvFtnaYyw_aem_ZoCLjGhEpY0tZ2TumCjaLg&e=AT305efeS2Y-nfx62rYg97gCS99t2K67NkHUArSKNDgcU2fCbT6fyFiqrqXg2k3XtI-47TiecsquCYX861ZfM_cmqVWk9AOOlGtLZqA"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-square btn-light rounded-circle me-2" href=""><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6">
