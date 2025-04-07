@@ -129,7 +129,7 @@
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
                     <h3 class="mb-4">Need a functional contact form?</h3>
                     <p class="mb-4">The contact form is currently inactive. Get a functional and working contact form with Ajax & PHP in a few minutes. Just copy and paste the files, add a little code and you're done. <a href="https://htmlcodex.com/contact-form">Download Now</a>.</p>
-                    <form>
+                    <form method="POST">
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <div class="form-floating">
@@ -160,6 +160,21 @@
                             </div>
                         </div>
                     </form>
+                    <?php
+                         $con = mysqli_connect('localhost','root','','users');
+                         if(isset($_POST['submit']))
+                         {
+                            $name=$_POST['Your Name'];
+                            $email=$_POST['Your Email'];
+                            $subject=$_POST['Subject'];
+                            $message=$_POST['message'];
+                            $submit=$_POST['submit'];
+
+                            $query = "INSERT INTO mydata(name, email, subject, message, submit)values ('$name','$email','$subject','$message','$submit')";
+                            $execute=mysqli_query($con,$query);
+
+
+                         }
                 </div>
                 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
                     <h3 class="mb-4">Contact Details</h3>
