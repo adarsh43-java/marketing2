@@ -136,9 +136,10 @@
     <div class="alert alert-danger"><?php echo $error; ?></div>
 <?php endif; ?>
 
-<form method="post" action="">
+<form action="https://api.web3forms.com/submit" method="POST">
     <div class="row g-3">
         <div class="col-md-6">
+        <input type="hidden" name="access_key" value="3245a172-763b-4127-9534-1f1bededcc9c">
             <div class="form-floating">
                 <input type="text" class="form-control" id="name" name="name" placeholder="Your Name" required>
                 <label for="name">Your Name</label>
