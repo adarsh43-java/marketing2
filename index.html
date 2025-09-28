@@ -1,239 +1,121 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Adarsh Sharma — Full‑Stack Developer</title>
-  <meta name="description" content="Full‑stack web developer (React / Node / Mongo). I build fast, secure, SEO-friendly websites and web apps for startups and small businesses." />
-  <meta property="og:title" content="Adarsh Sharma — Full‑Stack Developer" />
-  <meta property="og:description" content="I build fast, secure websites & web apps. Hire me for your next project." />
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    /* small custom tweaks */
-    .gradient { background: linear-gradient(90deg,#4f46e5,#06b6d4); }
-    .card-hover:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12);} 
-    .smooth { scroll-behavior: smooth; }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-800 smooth">
-  <header class="bg-white shadow-sm fixed w-full z-30">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#hero" class="font-semibold text-lg">Adarsh<span class="text-indigo-600">Dev</span></a>
-      <nav class="space-x-4 hidden md:block">
-        <a href="#services" class="hover:text-indigo-600">Services</a>
-        <a href="#work" class="hover:text-indigo-600">Portfolio</a>
-        <a href="#process" class="hover:text-indigo-600">Process</a>
-        <a href="#contact" class="hover:text-indigo-600">Contact</a>
-      </nav>
-      <a href="#contact" class="hidden md:inline-block px-4 py-2 rounded-lg gradient text-white">Hire me</a>
-      <button id="mobileBtn" class="md:hidden">☰</button>
-    </div>
-  </header>
 
-  <main class="pt-24">
-    <!-- Hero -->
-    <section id="hero" class="max-w-6xl mx-auto px-6 py-20 flex flex-col md:flex-row items-center gap-10">
-      <div class="flex-1">
-        <h1 class="text-4xl md:text-5xl font-extrabold leading-tight">I build fast, secure <span class="text-indigo-600">websites & web apps</span> that get results</h1>
-        <p class="mt-6 text-lg text-gray-600">Full‑stack developer (React, Node.js, Express, MongoDB). I help businesses launch MVPs, migrate to modern stacks, and scale performance.</p>
-        <div class="mt-6 flex gap-4">
-          <a href="#contact" class="px-5 py-3 rounded-lg gradient text-white font-medium">Get a quote</a>
-          <a href="#work" class="px-5 py-3 rounded-lg border border-gray-200">See my work</a>
-        </div>
-        <ul class="mt-6 text-sm text-gray-500 space-y-1">
-          <li>✅ Fixed-price websites for small businesses</li>
-          <li>✅ Custom SaaS/MVP development</li>
-          <li>✅ Maintenance & monthly support</li>
-        </ul>
-      </div>
-      <div class="flex-1">
-        <div class="bg-white rounded-2xl p-6 shadow card-hover">
-          <h3 class="font-semibold">Quick lead form</h3>
-          <p class="text-sm text-gray-500 mt-2">Tell me about your project — I’ll reply within 24 hours.</p>
-          <form id="heroForm" class="mt-4 space-y-3">
-            <input required name="name" placeholder="Your name" class="w-full p-3 rounded border" />
-            <input required name="email" type="email" placeholder="Email" class="w-full p-3 rounded border" />
-            <input name="budget" placeholder="Budget (₹)" class="w-full p-3 rounded border" />
-            <textarea name="message" rows="3" placeholder="Brief project description" class="w-full p-3 rounded border"></textarea>
-            <button class="w-full py-3 rounded-lg gradient text-white">Send</button>
-            <p id="heroMsg" class="text-sm text-green-600 hidden mt-2">Message sent — thank you!</p>
-          </form>
-        </div>
-      </div>
-    </section>
+import { useState } from 'react'
+import { FaLinkedin, FaGithub, FaInstagram, FaEnvelope } from "react-icons/fa"
 
-    <!-- Services -->
-    <section id="services" class="max-w-6xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">Services I offer</h2>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow card-hover">
-          <h3 class="font-semibold">Website (Brochure)</h3>
-          <p class="text-sm text-gray-500 mt-2">Static or CMS-based brochure websites — fast, SEO‑ready, responsive.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow card-hover">
-          <h3 class="font-semibold">Web Apps & SaaS</h3>
-          <p class="text-sm text-gray-500 mt-2">React + Node + Mongo or Postgres. Realtime features, auth, payments.</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow card-hover">
-          <h3 class="font-semibold">Maintenance & Support</h3>
-          <p class="text-sm text-gray-500 mt-2">Monthly plans, security updates, uptime monitoring, small feature work.</p>
-        </div>
-      </div>
-    </section>
+export default function Home() {
+  const [msg, setMsg] = useState('')
+  const [sending, setSending] = useState(false)
 
-    <!-- Portfolio -->
-    <section id="work" class="max-w-6xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">Recent projects</h2>
-      <p class="text-gray-500 mt-2">(Replace these with your real projects/screenshots & short case studies.)</p>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <article class="bg-white p-4 rounded-xl shadow card-hover">
-          <img src="https://via.placeholder.com/600x300?text=Project+1" alt="Project 1" class="w-full rounded" />
-          <h4 class="mt-3 font-semibold">E‑commerce store</h4>
-          <p class="text-sm text-gray-500 mt-1">React + Stripe + Admin panel. Increased conversion by 28%.</p>
-        </article>
-        <article class="bg-white p-4 rounded-xl shadow card-hover">
-          <img src="https://via.placeholder.com/600x300?text=Project+2" alt="Project 2" class="w-full rounded" />
-          <h4 class="mt-3 font-semibold">SaaS landing + auth</h4>
-          <p class="text-sm text-gray-500 mt-1">MVP built with Next.js & Express. Deployed on Vercel + Heroku.</p>
-        </article>
-        <article class="bg-white p-4 rounded-xl shadow card-hover">
-          <img src="https://via.placeholder.com/600x300?text=Project+3" alt="Project 3" class="w-full rounded" />
-          <h4 class="mt-3 font-semibold">Company website</h4>
-          <p class="text-sm text-gray-500 mt-1">Custom CMS + performance optimisation.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Process -->
-    <section id="process" class="max-w-4xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">How I work</h2>
-      <ol class="mt-6 space-y-4 text-gray-600">
-        <li>1. Free consultation → scope & timeline.</li>
-        <li>2. Fixed quote or milestone plan.</li>
-        <li>3. Rapid prototyping → development → testing.</li>
-        <li>4. Delivery, deployment & optional maintenance.</li>
-      </ol>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="max-w-6xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">What clients say</h2>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <blockquote class="bg-white p-6 rounded-xl shadow">“Fast, professional and great communication. Delivered on time.” — Client A</blockquote>
-        <blockquote class="bg-white p-6 rounded-xl shadow">“Our sales improved after site revamp.” — Client B</blockquote>
-        <blockquote class="bg-white p-6 rounded-xl shadow">“Excellent maintenance support.” — Client C</blockquote>
-      </div>
-    </section>
-
-    <!-- Pricing (simple) -->
-    <section class="max-w-4xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">Pricing (examples)</h2>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold">Starter</h3>
-          <p class="text-3xl font-bold mt-3">₹8,000</p>
-          <p class="text-sm text-gray-500 mt-2">Static site, 3 pages, basic SEO</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold">Business</h3>
-          <p class="text-3xl font-bold mt-3">₹25,000</p>
-          <p class="text-sm text-gray-500 mt-2">Dynamic site, contact form, CMS</p>
-        </div>
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-semibold">SaaS / Custom</h3>
-          <p class="text-3xl font-bold mt-3">Custom</p>
-          <p class="text-sm text-gray-500 mt-2">MVPs, web apps, integrations</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="max-w-3xl mx-auto px-6 py-12">
-      <h2 class="text-2xl font-bold">Contact & project brief</h2>
-      <p class="text-gray-500 mt-2">Fill the form — I’ll reply with a proposal & rough estimate.</p>
-      <form id="contactForm" class="mt-6 bg-white p-6 rounded-xl shadow space-y-3">
-        <input required name="name" placeholder="Your name" class="w-full p-3 rounded border" />
-        <input required name="email" type="email" placeholder="Email" class="w-full p-3 rounded border" />
-        <input name="phone" placeholder="Phone (optional)" class="w-full p-3 rounded border" />
-        <input name="website" placeholder="Current website (if any)" class="w-full p-3 rounded border" />
-        <textarea required name="message" rows="5" placeholder="Project brief & goals" class="w-full p-3 rounded border"></textarea>
-        <div class="flex gap-3">
-          <button type="submit" class="px-5 py-3 rounded-lg gradient text-white">Send proposal</button>
-          <button type="button" id="whatsappBtn" class="px-5 py-3 rounded-lg border">WhatsApp</button>
-        </div>
-        <p id="contactMsg" class="text-sm text-green-600 hidden mt-2">Thanks — I’ll get back to you soon.</p>
-      </form>
-    </section>
-
-    <footer class="bg-white border-t mt-12">
-      <div class="max-w-6xl mx-auto px-6 py-6 flex flex-col md:flex-row justify-between items-center">
-        <p class="text-sm text-gray-500">© "Your Name" — Full‑Stack Developer • Built with ❤️</p>
-        <div class="space-x-3 mt-3 md:mt-0 text-sm">
-          <a href="#">LinkedIn</a>
-          <a href="#">GitHub</a>
-          <a href="#">Email</a>
-        </div>
-      </div>
-    </footer>
-  </main>
-
-  <script>
-    // Mobile menu
-    document.getElementById('mobileBtn').addEventListener('click', ()=>{
-      alert('Use the navigation links below: Services, Portfolio, Process, Contact');
-    });
-
-    // Simple form handlers -> POST to /api/contact
-    async function postForm(formEl, msgElId) {
-      const form = formEl;
-      const data = Object.fromEntries(new FormData(form).entries());
-      try {
-        const res = await fetch('/api/contact', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data) });
-        if(res.ok) {
-          form.reset();
-          document.getElementById(msgElId).classList.remove('hidden');
-        } else {
-          alert('Server error. You can contact via email.');
-        }
-      } catch(e) { alert('Network error — check server.'); }
-    }
-
-    document.getElementById('heroForm').addEventListener('submit', e=>{ e.preventDefault(); postForm(e.target,'heroMsg'); });
-    document.getElementById('contactForm').addEventListener('submit', e=>{ e.preventDefault(); postForm(e.target,'contactMsg'); });
-
-    // WhatsApp quick
-    document.getElementById('whatsappBtn').addEventListener('click', ()=>{
-      const text = encodeURIComponent('Hi Adarsh, I want a website. Brief: ');
-      window.open('https://wa.me/?text='+text, '_blank');
-    });
-  </script>
-
-  <!-- Backend example (save as server.js) -->
-  <!--
-  // Node/Express + Nodemailer example
-  const express = require('express');
-  const nodemailer = require('nodemailer');
-  const bodyParser = require('body-parser');
-  const app = express();
-  app.use(bodyParser.json());
-  app.use(express.static('public'));
-
-  app.post('/api/contact', async (req, res) => {
-    const { name, email, phone, website, message, budget } = req.body;
+  async function handleSubmit(e) {
+    e.preventDefault()
+    setSending(true)
+    setMsg('')
+    const data = Object.fromEntries(new FormData(e.target).entries())
     try {
-      // Replace with real SMTP credentials
-      const transporter = nodemailer.createTransport({ host: 'smtp.example.com', port: 587, secure: false, auth: { user: 'you@example.com', pass: 'password' } });
-      await transporter.sendMail({ from: 'you@example.com', to: 'your-personal-email@example.com', subject: `New lead: ${name}`, text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nWebsite: ${website}\nBudget: ${budget}\nMessage:\n${message}` });
-      res.status(200).json({ ok:true });
-    } catch (err) { console.error(err); res.status(500).json({ ok:false }); }
-  });
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      })
+      if(res.ok){ setMsg('✅ Thanks — I will contact you soon.'); e.target.reset(); }
+      else { setMsg('⚠️ Server error — please try later.'); }
+    } catch(err){ setMsg('❌ Network error — check server.'); }
+    setSending(false)
+  }
 
-  const port = process.env.PORT || 3000;
-  app.listen(port, ()=>console.log('Server running on', port));
+  return (
+    <div>
+      {/* ---------- HEADER ---------- */}
+      <header className="container header" style={{display:'flex',justifyContent:'space-between',alignItems:'center',padding:'16px 0'}}>
+        <div style={{display:'flex',alignItems:'center',gap:8}}>
+          <img src="/logo.png" alt="logo" style={{width:40,height:40}} />
+          <h1 style={{fontWeight:700,fontSize:22}}>Adarsh<span style={{color:'var(--indigo)'}}>Dev</span></h1>
+        </div>
+        <nav style={{display:'flex',gap:20,fontWeight:500}}>
+          <a href="#services">Services</a>
+          <a href="#work">Portfolio</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
 
-  // package.json dependencies:
-  // { "dependencies": { "express": "^4.18.2", "nodemailer": "^6.9.3", "body-parser": "^1.20.2" } }
-  -->
+      {/* ---------- HERO SECTION ---------- */}
+      <main className="container" style={{paddingTop:24}}>
+        <section style={{display:'flex',gap:32,alignItems:'center',marginBottom:48,flexWrap:'wrap'}}>
+          <div style={{flex:1}}>
+            <h2 style={{fontSize:36,margin:0}}>🚀 I build <span style={{color:'var(--indigo)'}}>modern websites & web apps</span></h2>
+            <p style={{marginTop:12,color:'#475569',fontSize:18,lineHeight:1.6}}>
+              Full-stack developer (React, Node.js, Express, MongoDB).  
+              I help businesses launch MVPs, migrate to modern stacks, and scale performance.
+            </p>
+            <div style={{marginTop:20,display:'flex',gap:12}}>
+              <a className="btn" href="#contact">Get a quote</a>
+              <a className="btn" href="#work" style={{background:'#fff',color:'#0f172a',border:'1px solid #e6edf3'}}>See my work</a>
+            </div>
+          </div>
+          <div style={{flex:'0 0 420px'}} className="card">
+            <h3 style={{marginTop:0}}>Quick lead form</h3>
+            <form onSubmit={handleSubmit} style={{marginTop:12}}>
+              <input name="name" placeholder="Your name" className="input" required />
+              <div style={{height:8}}/>
+              <input name="email" type="email" placeholder="Email" className="input" required />
+              <div style={{height:8}}/>
+              <input name="budget" placeholder="Budget (₹)" className="input" />
+              <div style={{height:8}}/>
+              <textarea name="message" rows="3" placeholder="Brief project description" className="input" />
+              <div style={{height:12}}/>
+              <button className="btn" type="submit" disabled={sending}>{sending? 'Sending...':'Send'}</button>
+            </form>
+            {msg && <p style={{color:'#059669',marginTop:8}}>{msg}</p>}
+          </div>
+        </section>
 
-</body>
-</html>
+        {/* ---------- SERVICES ---------- */}
+        <section id="services" style={{marginBottom:40}}>
+          <h3 className="section-title">💼 Services I offer</h3>
+          <div className="grid grid-3">
+            <div className="card"><h4>Website</h4><p>SEO-ready responsive websites.</p></div>
+            <div className="card"><h4>Web Apps & SaaS</h4><p>Full-stack apps with payments & auth.</p></div>
+            <div className="card"><h4>Maintenance</h4><p>Monthly support & performance fixes.</p></div>
+          </div>
+        </section>
+
+        {/* ---------- CONTACT ---------- */}
+        <section id="contact" style={{marginBottom:40}}>
+          <h3 className="section-title">📩 Contact & project brief</h3>
+          <div style={{marginTop:12}} className="card">
+            <form onSubmit={handleSubmit}>
+              <input name="name" placeholder="Your name" className="input" required />
+              <div style={{height:8}}/>
+              <input name="email" type="email" placeholder="Email" className="input" required />
+              <div style={{height:8}}/>
+              <input name="phone" placeholder="Phone (optional)" className="input" />
+              <div style={{height:8}}/>
+              <textarea name="message" rows="5" placeholder="Project brief & goals" className="input" />
+              <div style={{height:12}}/>
+              <div style={{display:'flex',gap:8}}>
+                <button className="btn" type="submit">{sending? 'Sending...':'Send proposal'}</button>
+                <a className="btn" href="https://wa.me/?text=Hi%20Adarsh%2C%20I%20want%20a%20website" target="_blank" rel="noreferrer"
+                  style={{background:'#fff',color:'#0f172a',border:'1px solid #e6edf3'}}>WhatsApp</a>
+              </div>
+            </form>
+            {msg && <p style={{color:'#059669',marginTop:8}}>{msg}</p>}
+          </div>
+        </section>
+
+        {/* ---------- FOOTER ---------- */}
+        <footer style={{padding:'24px 0',borderTop:'1px solid #e6edf3',marginTop:24}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',flexWrap:'wrap'}}>
+            <p style={{color:'#64748b'}}>© 2025 Adarsh Sharma — Full-Stack Developer</p>
+            <div style={{display:'flex',gap:16,fontSize:20}}>
+              <a href="https://www.linkedin.com/in/aadarsh-sharma-127a56327?lipi=urn%25253Ali%25253Apage%25253Ad_flagship3_profile_view_base_contact_details%25253BNLGGRPs%25252FQnGrmxKeVcqMcg%25253D%25253D" target="_blank"><FaLinkedin /></a>
+              <a href="https://github.com" target="_blank"><FaGithub /></a>
+              <a href="https://www.instagram.com/__adarsh__.43?igsh=c2h1N2ExMTZqeWJo&utm_source=qr" target="_blank"><FaInstagram /></a>
+              <a href="mailto:nxtayush3@gmail.com"><FaEnvelope /></a>
+              <p>© 2025 AdarshDev. All rights reserved. Licensed under <a href="/LICENSE">MIT License</a>.</p>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+  )
+}
